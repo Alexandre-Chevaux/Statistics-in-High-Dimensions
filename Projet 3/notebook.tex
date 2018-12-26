@@ -1,0 +1,746 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Projet3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{projet-3---sparsituxe9-estimation-et-suxe9lection-de-variables}{%
+\section{Projet 3 - Sparsité, estimation et sélection de
+variables}\label{projet-3---sparsituxe9-estimation-et-suxe9lection-de-variables}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \hypertarget{exercice-1}{%
+\subsection{Exercice 1}\label{exercice-1}}
+
+    On simule ici n variables aléatoires suivant le modèle de suite
+gaussienne soit: \[y_i=a*\eta_j +\xi_j \text{ avec} j=1,...,d \]
+\[\text{avec }  \xi_j \sim N[0,1] \]
+\[ \text{ et } \eta_i \text{ tel que} \sum_{j=1}^d \eta_j= [d^{1-\beta}] \]
+On cherche à déterminer le vecteur sparse theta à partir de différents
+estimateurs par seuillage:
+
+1)Estimateur fort: \[\hat{\theta}_j^H = y_i\mathbb{1}(|y_i| > \tau) \]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\item
+  Estimateur faible:
+  \[\hat{\theta}_j^S = y_i\mathbb{1}(1-\frac{\tau}{|y_i|})_+ \]
+\item
+  Non Negative Garrotte:
+  \[\hat{\theta}_j^{NG} = y_i\mathbb{1}(1-\frac{\tau^2}{|y_i|^2})_+ \]
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.3}
+        \PY{n}{tau} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{y}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{eta}\PY{p}{,} \PY{n}{ksi}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{a} \PY{o}{*} \PY{n}{eta} \PY{o}{+} \PY{n}{ksi}
+        
+        \PY{k}{def} \PY{n+nf}{theta\PYZus{}chap\PYZus{}H}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{tau}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y} \PY{o}{*} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{tau} \PY{o}{*} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{theta\PYZus{}chap\PYZus{}S}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{tau}\PY{p}{)}\PY{p}{:}
+            \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{tau}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}s[s \PYZlt{} 0] = 0}
+            \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{s} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+            \PY{n}{s} \PY{o}{=} \PY{n}{y} \PY{o}{*} \PY{n}{s}
+            \PY{k}{return} \PY{n}{s}
+        
+        \PY{k}{def} \PY{n+nf}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{tau}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{tau}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}ng[ng \PYZlt{} 0] = 0}
+            \PY{n}{ng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{ng} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ng}\PY{p}{)}
+            \PY{n}{ng} \PY{o}{=} \PY{n}{y} \PY{o}{*} \PY{n}{ng}
+            \PY{k}{return} \PY{n}{ng}
+\end{Verbatim}
+
+
+    1)On trace dans 1er temps, le graphe des 3 estimateurs avec un y variant
+entre -10 et 10
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{space} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+        \PY{n}{theta\PYZus{}chap\PYZus{}H\PYZus{}graph} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{(}\PY{n}{space}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+        \PY{n}{theta\PYZus{}chap\PYZus{}S\PYZus{}graph} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}S}\PY{p}{(}\PY{n}{space}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+        \PY{n}{theta\PYZus{}chap\PYZus{}NG\PYZus{}graph} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{(}\PY{n}{space}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Affichage des 3 graphes}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage des 3 estimateurs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{estimate theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}H\PYZus{}graph}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}S\PYZus{}graph}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}NG\PYZus{}graph}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hard Thresholding}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soft Thresholding}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Non\PYZhy{}Negative Garotte}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On vérifie bien qu'autour de 0, les valeurs retournées sont nulles ce
+qui est recherché lors de la construction d'un estimateur sparse.
+
+    2)On détermine ici le risque quadratique des estimateurs. On rappelle:
+\[R(\hat{\theta},a)=||\hat{\theta}-\theta^*||_2^2 \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{simul\PYZus{}y}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} eta = \PYZob{}0, 1\PYZcb{}}
+            \PY{c+c1}{\PYZsh{} Compute the sum of eta to get number of positive eta}
+            \PY{n}{sum\PYZus{}eta} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{beta}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ksi} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{Y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{} Initialize the etas vector (d,1) with only zeros}
+            \PY{n}{eta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} fill etas vector with ones, in order to have exactly sum\PYZus{}eta \PYZdq{}1\PYZdq{} and (d \PYZhy{} sum\PYZus{}eta) \PYZdq{}0\PYZdq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{sum\PYZus{}eta} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{one\PYZus{}allocated} \PY{o}{=} \PY{k+kc}{False}
+                \PY{k}{while} \PY{o+ow}{not} \PY{n}{one\PYZus{}allocated}\PY{p}{:}            
+                    \PY{n}{rnd} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{d}\PY{p}{)}
+                    \PY{n}{one\PYZus{}allocated} \PY{o}{=} \PY{p}{(}\PY{n}{eta}\PY{p}{[}\PY{n}{rnd}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}
+                    \PY{n}{eta}\PY{p}{[}\PY{n}{rnd}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{} Simulating Y}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{:}
+                \PY{n}{ksi}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{n}{Y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{n}{eta}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+} \PY{n}{ksi}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                \PY{n}{theta\PYZus{}star}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{n}{eta}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{theta\PYZus{}star}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{quad\PYZus{}risk}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{theta\PYZus{}star}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}func}\PY{p}{,} \PY{n}{tau}\PY{p}{)}\PY{p}{:}
+            \PY{n}{empirical\PYZus{}risk} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{empirical\PYZus{}risk} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{theta\PYZus{}chap\PYZus{}func}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{tau}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{empirical\PYZus{}risk}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{estimators} \PY{o}{=} \PY{p}{[}\PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}S}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{]}
+        \PY{n}{a\PYZus{}list} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{nb\PYZus{}simul} \PY{o}{=} \PY{l+m+mi}{10}
+        
+        \PY{n}{all\PYZus{}estimators\PYZus{}graphs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{estimator} \PY{o+ow}{in} \PY{n}{estimators}\PY{p}{:}
+            \PY{n}{estimator\PYZus{}graph} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{a\PYZus{}list}\PY{p}{:}
+                \PY{n}{quad\PYZus{}risk\PYZus{}result} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{i\PYZus{}simul} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nb\PYZus{}simul}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{Y}\PY{p}{,} \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{simul\PYZus{}y}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+                    \PY{n}{quad\PYZus{}risk\PYZus{}result} \PY{o}{+}\PY{o}{=} \PY{n}{quad\PYZus{}risk}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{theta\PYZus{}star}\PY{p}{,} \PY{n}{estimator}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+                \PY{n}{quad\PYZus{}risk\PYZus{}result} \PY{o}{/}\PY{o}{=} \PY{n}{nb\PYZus{}simul}
+                \PY{n}{estimator\PYZus{}graph}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{quad\PYZus{}risk\PYZus{}result}\PY{p}{)}
+            \PY{n}{all\PYZus{}estimators\PYZus{}graphs}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{estimator}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{:}
+                                        \PY{n}{estimator\PYZus{}graph}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Risque Quadratique des 3 estimateurs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R(theta, a)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legends} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{estimator\PYZus{}name}\PY{p}{,} \PY{n}{estimator\PYZus{}graph} \PY{o+ow}{in} \PY{n}{all\PYZus{}estimators\PYZus{}graphs}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{a\PYZus{}list}\PY{p}{,} \PY{n}{estimator\PYZus{}graph}\PY{p}{)}
+            \PY{n}{legends}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{estimator\PYZus{}name}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{legends}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On observe que le risque quadratique tend vers 0 pour l'estimateur
+faible et non-negative garrotte mais qu'il tend vers 130 pour
+l'estimateur fort.
+
+    3)On détermine ici le risque de sélection de variables pour chaqu'un des
+estimateurs. Ce risque s'exprime comme:
+\[ R^{MS}(\hat{\theta},a)=\sum_{j=1}^M |\eta_j -\hat{\eta_j}| \]
+\[\text{avec } \hat{\eta_j}=\mathbb{1}(|y_i| \geqslant \tau) \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{selection\PYZus{}var\PYZus{}risk}\PY{p}{(}\PY{n}{eta}\PY{p}{,} \PY{n}{eta\PYZus{}chap}\PY{p}{)}\PY{p}{:}
+            \PY{n}{sum\PYZus{}risk} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{eta}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sum\PYZus{}risk} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{eta}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{eta\PYZus{}chap}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{sum\PYZus{}risk}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{estimators} \PY{o}{=} \PY{p}{[}\PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}S}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{]}
+        \PY{n}{a\PYZus{}list} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{nb\PYZus{}simul} \PY{o}{=} \PY{l+m+mi}{10}
+        
+        \PY{n}{all\PYZus{}risk\PYZus{}graph} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{estimator} \PY{o+ow}{in} \PY{n}{estimators}\PY{p}{:}
+            \PY{n}{risk\PYZus{}graph} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{a\PYZus{}list}\PY{p}{:}
+                \PY{n}{selection\PYZus{}var\PYZus{}risk\PYZus{}result} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{i\PYZus{}simul} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nb\PYZus{}simul}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{Y}\PY{p}{,} \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{simul\PYZus{}y}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+                    \PY{n}{eta} \PY{o}{=} \PY{n}{theta\PYZus{}star}\PY{o}{/}\PY{n}{a}
+                    \PY{n}{eta\PYZus{}chap} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{tau}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{1}
+                    \PY{n}{selection\PYZus{}var\PYZus{}risk\PYZus{}result} \PY{o}{+}\PY{o}{=} \PY{n}{selection\PYZus{}var\PYZus{}risk}\PY{p}{(}\PY{n}{eta}\PY{p}{,} \PY{n}{eta\PYZus{}chap}\PY{p}{)}
+                \PY{n}{selection\PYZus{}var\PYZus{}risk\PYZus{}result} \PY{o}{/}\PY{o}{=} \PY{n}{nb\PYZus{}simul}
+                \PY{n}{risk\PYZus{}graph}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{selection\PYZus{}var\PYZus{}risk\PYZus{}result}\PY{p}{)}
+            \PY{n}{all\PYZus{}risk\PYZus{}graph}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{estimator}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{:}
+                                        \PY{n}{risk\PYZus{}graph}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Risque De Sélection de Variables des 3 estimateurs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}MS(theta, a)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{legends} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{estimator\PYZus{}name}\PY{p}{,} \PY{n}{risk\PYZus{}graph} \PY{o+ow}{in} \PY{n}{all\PYZus{}risk\PYZus{}graph}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{a\PYZus{}list}\PY{p}{,} \PY{n}{risk\PYZus{}graph}\PY{p}{)}
+            \PY{n}{legends}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{estimator\PYZus{}name}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{legends}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On constate que le risque de sélection décroit quand a augmente et que
+ce risque est nul lorsque a est supérieur à 5
+
+    \hypertarget{exercice-2}{%
+\subsection{Exercice 2}\label{exercice-2}}
+
+    Dans cette exercice on s'interesse à la détection de rupture. On
+construit comme avant à des variables aléatoires suivant le modèle de
+suite gaussienne avec des thetas construits de façon à créer une
+rupture.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n}{tau} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+        \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+        \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{theta\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{40}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{theta\PYZus{}star} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{theta\PYZus{}star}\PY{p}{)}
+\end{Verbatim}
+
+
+    Création du vecteur y
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{theta\PYZus{}star} \PY{o}{+} \PY{n}{epsilon} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+\end{Verbatim}
+
+
+    Création de la matrice Delta
+
+    Celle ci est construite comme suit: \[\Delta_j^*=z_{j+1}-z_j \]
+
+    \begin{itemize}
+\tightlist
+\item
+  à partir du vecteur theta --\textgreater{} pas d'aléatoire
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{delta\PYZus{}star} \PY{o}{=} \PY{n}{theta\PYZus{}star} \PY{o}{\PYZhy{}} \PY{n}{theta\PYZus{}star}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{delta\PYZus{}star} \PY{o}{=} \PY{n}{delta\PYZus{}star}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  à partir du vecteur y --\textgreater{} theta + de l'aléatoire
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{y\PYZus{}delta} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y\PYZus{}delta} \PY{o}{=} \PY{n}{y\PYZus{}delta}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \[\textbf{Estimation par Seuillage Dur des theta chapeau} \]
+
+    Pour estimer J* vecteur sparse des thetas, on utilse les différents
+estimateurs de seuillage de l'exercie 1.
+
+    \begin{itemize}
+\tightlist
+\item
+  Estimation de J*
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{delta\PYZus{}chap} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n}{J\PYZus{}star} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{delta\PYZus{}chap} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{J\PYZus{}star}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} (array([ 9, 29], dtype=int64),)
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Risque Quadratique Estimé
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} méthode 1}
+         \PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}H} \PY{o}{=} \PY{n}{quad\PYZus{}risk}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{delta\PYZus{}star}\PY{p}{,} \PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}H}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.1505912079349065
+
+    \end{Verbatim}
+
+    \[\textbf{Estimation par Seuillage Doux des theta chapeau} \]
+
+    \begin{itemize}
+\tightlist
+\item
+  Estimation de J*
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{delta\PYZus{}chap} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}S}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n}{J\PYZus{}star} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{delta\PYZus{}chap} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{J\PYZus{}star}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} (array([ 9, 29], dtype=int64),)
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Risque Quadratique Estimé
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} méthode 1}
+         \PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}S} \PY{o}{=} \PY{n}{quad\PYZus{}risk}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{delta\PYZus{}star}\PY{p}{,}\PY{n}{theta\PYZus{}chap\PYZus{}S}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}S}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+14.199422494375856
+
+    \end{Verbatim}
+
+    \[ \textbf{Estimation par Non-Negative Garrotte des theta chapeau}\]
+
+    \begin{itemize}
+\tightlist
+\item
+  Estimation de J*
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{delta\PYZus{}chap} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n}{J\PYZus{}star} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{delta\PYZus{}chap} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{J\PYZus{}star}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} (array([ 9, 29], dtype=int64),)
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Risque Quadratique Estimé
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} méthode 1}
+         \PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}NG} \PY{o}{=} \PY{n}{quad\PYZus{}risk}\PY{p}{(}\PY{n}{y\PYZus{}delta}\PY{p}{,} \PY{n}{delta\PYZus{}star}\PY{p}{,}\PY{n}{theta\PYZus{}chap\PYZus{}NG}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{est\PYZus{}quad\PYZus{}risk\PYZus{}NG}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.062795922660021
+
+    \end{Verbatim}
+
+    \[\textbf{Résultat:} \] On constate bien que le vecteur retourné par les
+3 estimateurs est (9, 29), ce qui correspond bien à l'indice des deux
+points de rupture de nos valeurs.
+
+    \hypertarget{exercice-3}{%
+\subsection{Exercice 3}\label{exercice-3}}
+
+    On s'interrese ici au cours de Bourse de Renault pendant le mois
+dernier. On cherche à savoir si les révélations sur Carlos Ghosn ont eut
+un impact qui a fait chuter d'un coup le cours en bourse.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CoursRenault.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{close} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{clot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{date}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          
+          \PY{n}{d} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{close}\PY{p}{)}
+          \PY{n}{tau} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          \PY{n}{close}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} 0    85.23
+          1    84.88
+          2    83.92
+          3    83.51
+          4    84.41
+          Name: clot, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{close\PYZus{}delta} \PY{o}{=} \PY{n}{close} \PY{o}{\PYZhy{}} \PY{n}{close}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{close\PYZus{}delta} \PY{o}{=} \PY{n}{close\PYZus{}delta}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{theta\PYZus{}chap} \PY{o}{=} \PY{n}{theta\PYZus{}chap\PYZus{}H}\PY{p}{(}\PY{n}{close\PYZus{}delta}\PY{p}{,} \PY{n}{tau}\PY{p}{)}
+          \PY{n}{J\PYZus{}star} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{theta\PYZus{}chap} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{J\PYZus{}star}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{date}\PY{p}{[}\PY{n}{J\PYZus{}star}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(array([ 79, 243], dtype=int64),)
+80    2018-03-29
+244   2018-11-19
+Name: date, dtype: datetime64[ns]
+
+    \end{Verbatim}
+
+    On observe bien une rupture du cours de bourse au niveau de la 12ème
+valeur du Dataset (à la date du 19/11/2018) ce qui correspond au jour de
+sortie des révélations. L'autre point de ruputre du 29 mars correspond à
+une rumeur de fusion avec Nissan
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
